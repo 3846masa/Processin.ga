@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Help - Processin.ga</title>
+<link rel="shortcut icon" href="/imgs/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="/imgs/favicon.ico" type="image/vnd.microsoft.icon" />
+
+<link rel="stylesheet" href="/css/github-markdown.css">
+<style>.markdown-body{overflow:auto;}</style>
+<script src="/js/jquery-2.1.1.min.js"></script>
+<script src="/syntaxHighlighter/scripts/shCore.js"></script>
+<script src="/syntaxHighlighter/scripts/shBrushProcessing.js"></script>
+<link rel="stylesheet" href="/syntaxHighlighter/styles/shCore.css">
+<link rel="stylesheet" href="/syntaxHighlighter/styles/shProcessing2Theme.css">
+<script>
+$(function(){
+  $('pre').addClass('brush: pde; gutter: false; toolbar: false;');
+  SyntaxHighlighter.highlight();
+});
+</script>
+<style>
+.syntaxhighlighter *:before, .syntaxhighlighter *:after {
+  display: none !important;
+}
+.syntaxhighlighter {
+  border: #212121 solid 1px;
+  padding: 10px;
+}
+</style>
+
+</head>
+<body class="markdown-body">
+  <h1 id="processin-ga">Processin.ga</h1>
+  <h2 id="processin-ga-">Processin.gaについて</h2>
+  <p>Processin.gaは，Processing.jsを利用したアプリケーション開発環境です．</p>
+  <p>Processing.jsについては，<a href="http://processingjs.org/reference/">http://processingjs.org/reference/</a> をご覧ください．</p>
+  <h2 id="processin-ga-">Processin.gaで追加された機能</h2>
+  <p>Processin.gaでは，Processing.jsにない機能をいくつか搭載しています．</p>
+  <h3 id="save-">save()</h3>
+  <p><a href="http://processingjs.org/reference/save_/">http://processingjs.org/reference/save_/</a> の仕様を変更しました．</p>
+  <p>従来は別ウィンドウに画像が表示されるだけでしたが，命名したファイル名で保存されるようになりました．</p>
+  <h3 id="capture-class">Capture Class</h3>
+  <p><a href="https://processing.org/reference/libraries/video/Capture.html">https://processing.org/reference/libraries/video/Capture.html</a> を参考に生成しています．</p>
+  <h4 id="sample">Sample</h4>
+  <pre>
+    Capture cam;
+    String[] cameras; // 利用できるカメラのリスト
+    int select = 0; // 選択しているカメラ
+
+    void setup() {
+      // 利用できるカメラリストを取得
+      cameras = Capture.list();
+
+      // 利用できるカメラがあれば，起動
+      if (cameras.length != 0) {
+        camSet();
+      }
+    }
+
+    void draw() {
+      // カメラが利用できなければ，終了
+      if (cameras.length == 0) {
+        println("There are no cameras available for capture.");
+        noLoop();
+        exit();
+      }
+
+      // 全画面になるよう拡大・縮小する
+      float zoom = 0;
+      if (cam.available()) {
+        cam.read();
+        zoom = max(width/cam.width, height/cam.height);
+      }
+      // カメラ画像を描画
+      imageMode(CENTER);
+      image(cam, width/2, height/2, cam.width*zoom, cam.height*zoom);
+    }
+
+    // カメラ切り替え
+    void camSet() {
+      if (cameras.length == 0) return;
+      if (cam != null) {
+        cam.stop();
+      }
+      cam = new Capture(this, cameras[select%cameras.length]);
+      cam.start();
+    }
+
+    void mousePressed() {
+      if (cam == null || !cam.available()) return;
+      select++;
+      camSet();
+    }
+  </pre>
+  <h3 id="vibrate">vibrate</h3>
+  <p><a href="https://developer.mozilla.org/ja/docs/Web/API/Navigator.vibrate">https://developer.mozilla.org/ja/docs/Web/API/Navigator.vibrate</a> を利用できます．</p>
+  <h4 id="sample">Sample</h4>
+  <pre>
+    void setup(){}
+    void draw(){}
+    void mousePressed() {
+      vibrate(100); // vibrate for 100ms
+    }
+  </pre>
+  <h3 id="devicemotion-deviceorientation">devicemotion / deviceorientation</h3>
+  <p>端末の傾き，加速度，重力加速度が取得できます．</p>
+  <p>詳しくは，<a href="https://developer.mozilla.org/ja/docs/DOM/Orientation_and_motion_data_explained">https://developer.mozilla.org/ja/docs/DOM/Orientation_and_motion_data_explained</a> をご覧ください．</p>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:center">Name</th>
+        <th style="text-align:left">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center">accelerationX</td>
+        <td style="text-align:left">加速度X</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">accelerationY</td>
+        <td style="text-align:left">加速度Y</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">accelerationZ</td>
+        <td style="text-align:left">加速度Z</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">gravityX</td>
+        <td style="text-align:left">重力加速度X</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">gravityY</td>
+        <td style="text-align:left">重力加速度Y</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">gravityZ</td>
+        <td style="text-align:left">重力加速度Z</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">deviceRotateX</td>
+        <td style="text-align:left">beta回転</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">deviceRotateY</td>
+        <td style="text-align:left">gamma回転</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">deviceRotateZ</td>
+        <td style="text-align:left">alpha回転</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Processin.ga</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/imgs/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="/imgs/favicon.ico" type="image/vnd.microsoft.icon" />
+
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery.remodal.js"></script>
+
+    <script src="lib/grid.js"></script>
+    <script src="lib/version.js"></script>
+    <script src="lib/detector.js"></script>
+    <script src="lib/formatinf.js"></script>
+    <script src="lib/errorlevel.js"></script>
+    <script src="lib/bitmat.js"></script>
+    <script src="lib/datablock.js"></script>
+    <script src="lib/bmparser.js"></script>
+    <script src="lib/datamask.js"></script>
+    <script src="lib/rsdecoder.js"></script>
+    <script src="lib/gf256poly.js"></script>
+    <script src="lib/gf256.js"></script>
+    <script src="lib/decoder.js"></script>
+    <script src="lib/qrcode.js"></script>
+    <script src="lib/findpat.js"></script>
+    <script src="lib/alignpat.js"></script>
+    <script src="lib/databr.js"></script>
+    <script src="lib/index.js"></script>
+
+    <link rel="stylesheet" href="./css/jquery.remodal.css">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        position: relative;
+        text-align: center;
+        background-image: url(./imgs/bg_menu.jpg);
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+      }
+      .remodal-bg, #android_page {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      img.logo {
+        margin: 20px;
+        width: 75%;
+        max-width: 300px;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      canvas {
+        position: absolute;
+        margin: 0 auto;
+        max-width: 100%;
+        max-height: 50%;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 5%;
+      }
+      video{
+        display:none;
+      }
+      p.button {
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 100%;
+        padding-bottom: 30px;
+        text-align: center;
+      }
+      #changeButton {
+        font-size: 1em;
+        background-color: #4CAF50;
+        color: #DCEDC8;
+        padding: 10px;
+        border-radius: 0.5em;
+      }
+      p > span {
+        white-space: nowrap;
+      }
+
+      .remodal-bg {
+        -webkit-filter: none !important;
+        -ms-filter: none !important;
+        filter: none !important;
+      }
+
+      .remodal-overlay {
+        opacity: 0.5 !important;
+      }
+
+      .remodal-close {
+        display: none;
+      }
+
+      .license {
+        position: absolute; color: #FAFAFA;
+        background-color: #212121;
+        bottom: 0; right: 0; z-index: 100000;
+        padding: 2px; box-sizing: border-box;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="license" href="license.html">
+      <small>免責事項・ライセンス</small>
+    </a>
+    <div class="remodal-bg">
+
+    <div id="android_page">
+      <img class="logo" src="./imgs/logo.png">
+      <video id="myVideo" autoplay></video>
+      <canvas id="qr-canvas"></canvas>
+      <p class="button">
+        <button id="changeButton">カメラ切り替え</button>
+      </p>
+    </div>
+
+    </div>
+
+    <div data-remodal-id="startup">
+      <p>
+        <img class="logo" src="./imgs/logo.png">
+      </p>
+      <h1>Attention</h1>
+      <p>
+        カメラの利用を許可してください
+      </p>
+      <a class="remodal-cancel" href="#">カメラを再起動</a>
+    </div>
+
+    <div data-remodal-id="notcam">
+      <p>
+        <img class="logo" src="./imgs/logo.png">
+      </p>
+      <h1>Sorry!</h1>
+      <p>
+        カメラが対応していません<br>
+        <span>QRコードリーダアプリから</span><wbr>
+        <span>読み込んでください</span>
+      </p>
+    </div>
+  </body>
+</html>

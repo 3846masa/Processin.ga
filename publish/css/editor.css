@@ -1,0 +1,205 @@
+html, body {
+  position: relative; overflow: hidden;
+  width: 100%; height: 100%;
+  margin: 0;
+}
+
+textarea.editor {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 100; opacity: 0;
+  border: 0; padding: 0; margin: 0;
+  font-size: 1em; line-height: 1.1em;
+  overflow: scroll; resize: none;
+  word-wrap: break-word; word-break: break-all;
+  font-family: "Source Code Pro", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+}
+
+div.position {
+  position: absolute; color: transparent;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 0; padding: 0; margin: 0;
+  font-size: 1em; line-height: 1.1em;
+  overflow: scroll;
+  word-wrap: break-word; word-break: break-all; white-space: normal;
+  font-family: "Source Code Pro", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+}
+
+span.selection {
+  background-color: rgba(255, 204, 0, 0.5);
+}
+
+span.cursor {
+  display: inline-block;
+  background-color: black;
+  width: 1px; height: 1em;
+  margin-bottom: -4px;
+  animation: blink 1.5s step-end infinite;
+  -webkit-animation: blink 1.5s step-end infinite;
+}
+
+div.syntaxhighlighter {
+  position: absolute !important;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  margin: 0 !important;
+  overflow: scroll !important;
+}
+
+div.syntaxhighlighter > table {
+  position: relative;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+div.syntaxhighlighter > table * {
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+
+div.syntaxhighlighter > .toolbar {
+  display: none;
+}
+
+div#main {
+  position: absolute;
+  top: 0; left: 0;
+  float: left;
+  width: 50%; height: 100%;
+  box-sizing: border-box;
+  padding-top: 50px; padding-bottom: 50px;
+}
+
+div.menu {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 50px;
+  background-color: #212121; color: #FAFAFA;
+  padding: 3px; box-sizing: border-box;
+  font-size: 1em; white-space: nowrap;
+  overflow-x: auto; overflow-y: hidden;
+  background-image: url(../imgs/bg_menu.jpg);
+  background-size: cover;
+}
+
+.menu-icon {
+  color: #212121; background-color: #FAFAFA; border-radius: 1em;
+  margin: 7px 5px;
+  font-size: 1.125em;
+  padding: 0.25em;
+}
+
+.menu-icon:hover {
+  background-color: #E0E0E0;
+}
+
+.menu-icon[disabled] {
+  opacity: 0.5;
+}
+
+.menu-icon.square {
+  border-radius: 0;
+  padding: 0.125em;
+}
+
+div.log {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 50px;
+  color: #FAFAFA; background-color: rgba(33, 33, 33, 0.8);
+  overflow-x: hidden; overflow-y: auto;
+  font-family: "Source Code Pro", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  word-wrap: break-word;
+}
+
+div.logBG {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 50px;
+  background-image: url(../imgs/bg_menu.jpg); background-size: cover;
+  background-position-y: bottom; z-index: -100;
+}
+
+div.log > .error {
+  color: #E53935;
+}
+
+div.edit {
+  position: relative;
+  width: 100%; height: 100%;
+}
+
+div#preview {
+  position: absolute; float: right;
+  top: 0; right: 0; background-color: #616161;
+  width: 50%; height: 100%;
+  background: radial-gradient(#BDBDBD, #616161);
+}
+
+div#preview::before {
+  content: '#'; position: absolute;
+  top: 0; left: 0; color: transparent;
+  width: 100%; height: 100%; opacity: 0.3;
+  background-image: url(../imgs/bg_menu.jpg);
+  background-size: cover; transform: scaleY(-1);
+}
+
+div#preview > iframe {
+  position: absolute;
+  border: 0; padding: 0;
+  top: 50%; left: 50%;
+  width: 640px; height: 1136px;
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+div.menu > .run-button[running] {
+  background-color: #FDD835;
+}
+
+div.menu > *[title="Run with Device"]:not([connected]) {
+  opacity: 0.5;
+}
+
+div.menu > select, div.menu > input {
+  position: relative; top: -2px;
+  border: 2px #FAFAFA solid; background-color: rgba(33, 33, 33, 0.5);
+  -webkit-appearance: none; -moz-appearance: none; appearance: none; text-indent: .01px; text-overflow: "";
+  font-family: "Source Code Pro", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  font-size: 1em; padding-bottom: 0.1em; color: #FAFAFA;
+}
+
+div.menu > select[disabled], div.menu > input[disabled] {
+  opacity: 0.5;
+}
+
+div.menu > input {
+  width: 50px; padding-left: 5px;
+}
+
+div.menu > span {
+  margin: 0 3px;
+}
+
+.remodal-bg {
+  -webkit-filter: none !important;
+  -ms-filter: none !important;
+  filter: none !important;
+}
+
+.remodal-overlay {
+  opacity: 0.5 !important;
+}
+
+.remodal-close {
+  display: none;
+}
+
+@keyframes blink {
+  50% { opacity: 0.0; }
+}
+@-webkit-keyframes blink {
+  50% { opacity: 0.0; }
+}
