@@ -65,7 +65,11 @@ $(function(){
     localStream = stream;
     video[0].play();
     scanInterval = setInterval(scanQR, 500);
-    startup.close();
+
+    (function closeRemodal() {
+      if (startup.busy) setTimeout(closeRemodal, 100);
+      else startup.close();
+    })();
   };
   var videoError = function(error){};
 
@@ -96,7 +100,7 @@ $(function(){
       cnt = (cnt + 1) % cameraData.length;
     }
     //カメラ再生中の場合は切り替えのため、いったん停止する
-    if (localStream) localStream.stop();
+    // if (localStream) localStream.stop();
     if (scanInterval) {
       clearInterval(scanInterval);
       scanInterval = null;
